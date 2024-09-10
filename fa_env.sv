@@ -18,4 +18,8 @@ class fa_env extends uvm_env;
 	endfunction
 
 	// connect_phase
+	function void connect_phase(uvm_phase phase);
+		agent.mon.a_port.connect(sbd.a_imp);
+		`uvm_info("FA_ENV","Printing from the connect_phase of fa_env",UVM_HIGH)
+	endfunction
 endclass

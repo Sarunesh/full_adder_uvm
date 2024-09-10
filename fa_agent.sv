@@ -20,5 +20,11 @@ class fa_agent extends uvm_agent;
 		sub = fa_sub::type_id::create("sub",this);
 		`uvm_info("FA_AGENT","Printing from the build_phase of fa_agent",UVM_HIGH)
 	endfunction
+
 	// connect_phase
+	function void connect_phase(uvm_phase phase);
+		drv.seq_item_port.connect(sqr.seq_item_export);
+		mon.a_port.connect(sub.analysis_export);
+		`uvm_info("FA_AGENT","Printing from the connect_phase of fa_agent",UVM_HIGH)
+	endfunction
 endclass
