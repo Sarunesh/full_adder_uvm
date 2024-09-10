@@ -1,4 +1,4 @@
-class fa_sub extends uvm_subscriber;
+class fa_sub extends uvm_subscriber#(fa_tx);
 	// Factory registration
 	`uvm_component_utils(fa_sub)
 
