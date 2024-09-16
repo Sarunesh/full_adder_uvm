@@ -14,6 +14,8 @@ module top;
 					.carry	(pif.carry)
 					);
 	
+	initial uvm_config_db#(virtual fa_interface)::set(null,"*","VIF",pif);
+
 	initial begin
 		rst=1;
 		#5;
@@ -21,6 +23,6 @@ module top;
 	end
 
 	initial begin
-		run_test("base_test");
+		run_test("");
 	end
 endmodule

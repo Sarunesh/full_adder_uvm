@@ -4,6 +4,9 @@ class fa_seq_lib extends uvm_sequence#(fa_tx);
 
 	// Constructor
 	`NEW_OBJECT
+
+	// Properties
+	int count;
 endclass
 
 class test_abc extends fa_seq_lib;
@@ -11,5 +14,10 @@ class test_abc extends fa_seq_lib;
 	`NEW_OBJECT
 
 	task body();
+		uvm_config_db#(int)::get(null,get_full_name(),"count",count);
+		`uvm_info("TEST_ABC",$sformatf("count=%0d",count),UVM_HIGH)
+		repeat(count)begin
+			`uvm_do(req)
+		end
 	endtask
 endclass
