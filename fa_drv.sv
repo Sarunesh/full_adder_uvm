@@ -30,7 +30,7 @@ class fa_drv extends uvm_driver#(fa_tx);
 		repeat(count)begin
 			seq_item_port.get_next_item(req);
 			drive_tx(req);
-			req.print();
+			//req.print();
 			seq_item_port.item_done();
 		end
 	endtask
