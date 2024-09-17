@@ -18,6 +18,9 @@ module top;
 
 	initial begin
 		rst=1;
+		pif.a=0;
+		pif.b=0;
+		pif.cin=0;
 		#5;
 		rst=0;
 	end

@@ -38,13 +38,13 @@ class fa_sbd extends uvm_scoreboard;
 			if(tx.carry == tx_t.carry) fa_common::carry_match++;
 			else fa_common::carry_mismatch++;
           
-          	$display("tx.sum=%b tx_t.sum=%b tx.carry=%b tx_t.carry=%b", tx.sum, tx_t.sum, tx.carry, tx_t.carry);
+          	//$display("tx.sum=%b tx_t.sum=%b tx.carry=%b tx_t.carry=%b", tx.sum, tx_t.sum, tx.carry, tx_t.carry);
           	start_sbd=0;
 		end
 	endtask
 
 	virtual function void write(fa_tx t);
-    	$display("t=%p",t);
+    	//$display("t=%p",t);
 		$cast(tx,t);
 		start_sbd=1;
 	endfunction

@@ -15,14 +15,13 @@ class fa_drv extends uvm_driver#(fa_tx);
 		`uvm_info("FA_DRV","Printing from the build_phase of fa_drv",UVM_HIGH)
 
 		// Reading the interface from config db
-		if(uvm_config_db#(virtual fa_interface)::get(this,get_full_name(),"VIF",vif))
-			`uvm_info("FA_DRV","Successfully read the interface in driver",UVM_HIGH)
-		else
+		if(!uvm_config_db#(virtual fa_interface)::get(this,get_full_name(),"VIF",vif))
 			`uvm_fatal("FA_DRV","Failed to read the interface in driver")
 	endfunction
 
 	// run_phase
 	task run_phase(uvm_phase phase);
+		@(negedge vif.rst);
 		`uvm_info("FA_DRV","Printing from the run_phase of fa_drv",UVM_HIGH)
 	// Reading the count value from config db
 		if(!uvm_config_db#(int)::get(this,get_full_name(),"count",count))
@@ -30,7 +29,7 @@ class fa_drv extends uvm_driver#(fa_tx);
 		repeat(count)begin
 			seq_item_port.get_next_item(req);
 			drive_tx(req);
-			//req.print();
+// 			req.print();
 			seq_item_port.item_done();
 		end
 	endtask

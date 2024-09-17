@@ -18,15 +18,14 @@ class fa_mon extends uvm_monitor;
 		`uvm_info("FA_MON","Printing from the build_phase of fa_mon",UVM_HIGH)
 
 	// Reading the interface from config db
-		if(uvm_config_db#(virtual fa_interface)::get(this,get_full_name(),"VIF",vif))
-			`uvm_info("FA_MON","Successfully read the interface in monitor",UVM_HIGH)
-		else
+		if(!uvm_config_db#(virtual fa_interface)::get(this,get_full_name(),"VIF",vif))
 			`uvm_fatal("FA_MON","Failed to read the interface in monitor")
 
 	endfunction
 
 	// run_phase
 	task run_phase(uvm_phase phase);
+		@(negedge vif.rst);
 //       #1;
 		`uvm_info("FA_MON","Printing from the run_phase of fa_mon",UVM_HIGH)
 
