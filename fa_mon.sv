@@ -27,6 +27,7 @@ class fa_mon extends uvm_monitor;
 
 	// run_phase
 	task run_phase(uvm_phase phase);
+//       #1;
 		`uvm_info("FA_MON","Printing from the run_phase of fa_mon",UVM_HIGH)
 
 	// Reading the count value from config db
@@ -34,6 +35,7 @@ class fa_mon extends uvm_monitor;
 			`uvm_fatal("FA_MON","Failed to read the count value in monitor")
 
 		repeat(count)begin
+          #3;
 			tx = new();
 			tx.a	= vif.a;
 			tx.b	= vif.b;
