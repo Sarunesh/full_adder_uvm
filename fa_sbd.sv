@@ -20,14 +20,16 @@ class fa_sbd extends uvm_scoreboard;
 
 	// run_phase
 	task run_phase(uvm_phase phase);
+      #9;
 		`uvm_info("FA_SBD","Printing from the run_phase of fa_sbd",UVM_HIGH)
-      	wait(start_sbd == 1);
+//       	wait(start_sbd == 1);
 	// Reading the count value from config db
 		if(!uvm_config_db#(int)::get(this,get_full_name(),"count",count))
 			`uvm_fatal("FA_DRV","Failed to read the count value in scoreboard")
 		repeat(count)begin
+          	wait(start_sbd == 1);
 			tx_t = new();
-			tx_t.copy(tx);
+			tx_t.do_copy(tx);
 			{tx_t.carry, tx_t.sum} = tx.a+tx.b+tx.cin;
 
 	// Checker logic
@@ -35,10 +37,14 @@ class fa_sbd extends uvm_scoreboard;
 			else fa_common::sum_mismatch++;
 			if(tx.carry == tx_t.carry) fa_common::carry_match++;
 			else fa_common::carry_mismatch++;
+          
+          	$display("tx.sum=%b tx_t.sum=%b tx.carry=%b tx_t.carry=%b", tx.sum, tx_t.sum, tx.carry, tx_t.carry);
+          	start_sbd=0;
 		end
 	endtask
 
 	virtual function void write(fa_tx t);
+    	$display("t=%p",t);
 		$cast(tx,t);
 		start_sbd=1;
 	endfunction
